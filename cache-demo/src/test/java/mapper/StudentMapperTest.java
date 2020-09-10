@@ -78,12 +78,14 @@ public class StudentMapperTest {
   }
 
   /**
-   *
+   *开启两个SqlSession，在sqlSession1中查询数据，使一级缓存生效，
+   * 在sqlSession2中更新数据库，验证一级缓存只在数据库会话内部共享 。
    * <setting name="localCacheScope" value="SESSION"/>
    * <setting name="cacheEnabled" value="true"/>
    */
   @Test
   public void testLocalCacheScope() throws Exception {
+    initDb();
     SqlSession sqlSession1 = factory.openSession(true); // 自动提交事务
     SqlSession sqlSession2 = factory.openSession(true); // 自动提交事务
 
@@ -91,8 +93,10 @@ public class StudentMapperTest {
     StudentMapper studentMapper2 = sqlSession2.getMapper(StudentMapper.class);
 
     System.out.println("studentMapper读取数据: " + studentMapper.getStudentById(1));
-    System.out.println("studentMapper读取数据: " + studentMapper.getStudentById(1));
+    System.out.println("studentMapper2读取数据: " + studentMapper2.getStudentById(1));
+    System.out.println("=======================================================");
     System.out.println("studentMapper2更新了" + studentMapper2.updateStudentName("小岑", 1) + "个学生的数据");
+    System.out.println("=======================================================");
     System.out.println("studentMapper读取数据: " + studentMapper.getStudentById(1));
     System.out.println("studentMapper2读取数据: " + studentMapper2.getStudentById(1));
 
