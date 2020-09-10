@@ -10,6 +10,9 @@ import org.apache.ibatis.session.SqlSessionFactoryBuilder;
 import org.junit.Before;
 import org.junit.Test;
 
+/**
+ * https://tech.meituan.com/2018/01/19/mybatis-cache.html
+ */
 public class StudentMapperTest {
 
   private static SqlSessionFactory factory;
@@ -40,6 +43,7 @@ public class StudentMapperTest {
   }
 
   /**
+   * 只有第一次真正查询了数据库，后续的查询使用了一级缓存。
    * <setting name="localCacheScope" value="SESSION"/>
    * <setting name="cacheEnabled" value="true"/>
    */
@@ -56,6 +60,8 @@ public class StudentMapperTest {
   }
 
   /**
+   * 增加了对数据库的修改操作，验证在一次数据库会话中，如果对数据库发生了修改操作，一级缓存是否会失效。
+   * 在修改操作后执行的相同查询，查询了数据库，一级缓存失效。
    * <setting name="localCacheScope" value="SESSION"/>
    * <setting name="cacheEnabled" value="true"/>
    */
@@ -72,6 +78,7 @@ public class StudentMapperTest {
   }
 
   /**
+   *
    * <setting name="localCacheScope" value="SESSION"/>
    * <setting name="cacheEnabled" value="true"/>
    */
