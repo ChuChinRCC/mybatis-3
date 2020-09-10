@@ -127,7 +127,7 @@ Properties getUrlAsProperties(String urlString)
 Class classForName(String className)</source>
 
   <p>El último método build() recibe una instancia de Configuration. La clase Configuration contiene todo lo que posiblemente necesites conocer de la instancia de SqlSessionFactory. La clase Configuración es útil para investigar la configuración, incluido añadir o modificar SQL maps (no es recomendable una vez la aplicación ha comenzado a aceptar peticiones). La clase Configuration tiene todas las opciones de configuración que hemos visto ya pero expuestas como una API Java. A continuación se muestra un ejemplo simple de cómo instanciar manualmente un objeto Configuration y pasarlo al método build() para crear un SqlSessionFactory.</p>
-  <source>DataSource dataSource = BaseDataTest.createBlogDataSource();
+  <source>DataSource dataSource = mapper.BaseDataTest.createBlogDataSource();
 TransactionFactory transactionFactory = new JdbcTransactionFactory();
 
 Environment environment = new Environment("development", transactionFactory, dataSource);

@@ -131,7 +131,7 @@ Properties getUrlAsProperties(String urlString)
 Class classForName(String className)</source>
 
   <p>もう一つの build メソッドは Configuration のインスタンスを引数に取ります。Configuration クラスには、SqlSessionFactory のインスタンスについて必要とされる設定が全てが含まれています。Configuration クラスを使うと、設定を調べたり、SQL マップの検索、変更を行うこともできます（アプリケーションがリクエストを受け付けた後で SQL マップを操作するのは避けるべきですが）。Configuration クラスは Java API からのみ利用可能で、これまでに出てきた全ての設定にアクセスすることができます。コード内で生成した Configuration のインスタンスを build() メソッドに渡して SqlSessionFactory を作成する簡単な例を挙げておきます。</p>
-  <source>DataSource dataSource = BaseDataTest.createBlogDataSource();
+  <source>DataSource dataSource = mapper.BaseDataTest.createBlogDataSource();
 TransactionFactory transactionFactory = new JdbcTransactionFactory();
 
 Environment environment = new Environment("development", transactionFactory, dataSource);

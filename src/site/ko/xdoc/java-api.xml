@@ -166,7 +166,7 @@ Class classForName(String className)</source>
   Configuration클래스는 SQL Map을 찾거나 관리하는 것을 포함하여 설정을 살펴보기 위해 유용하다.
   Configuration클래스는 앞서 봤던 모든 설정을 처리할 수 있으며 자바 API 로 나타낼 수 있다.
   SqlSessionFactory를 생성하기 위해 Configuration인스턴스를 build()메소드에 전달하는 예제이다.</p>
-  <source>DataSource dataSource = BaseDataTest.createBlogDataSource();
+  <source>DataSource dataSource = mapper.BaseDataTest.createBlogDataSource();
 TransactionFactory transactionFactory = new JdbcTransactionFactory();
 
 Environment environment = new Environment("development", transactionFactory, dataSource);
