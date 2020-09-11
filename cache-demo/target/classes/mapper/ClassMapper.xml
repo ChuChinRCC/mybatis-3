@@ -3,7 +3,7 @@
 <mapper namespace="mapper.ClassMapper">
 <!--  cache标签用于声明这个namespace使用二级缓存，并且可以自定义配置。-->
     <cache/>
-    <!--<cache-ref namespace="mapper.StudentMapper"/>-->
+<!--    <cache-ref namespace="mapper.StudentMapper"/>-->
     <update id="updateClassName">
         UPDATE class SET name = #{name} WHERE id = #{id}
     </update>

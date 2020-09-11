@@ -92,7 +92,9 @@ public class CachingExecutor implements Executor {
   @Override
   public <E> List<E> query(MappedStatement ms, Object parameterObject, RowBounds rowBounds, ResultHandler resultHandler, CacheKey key, BoundSql boundSql)
       throws SQLException {
+//    从MappedStatement中获得在配置初始化时赋予的Cache。
     Cache cache = ms.getCache();
+    //      判断是否需要刷新缓存，代码如下所示：
     if (cache != null) {
       flushCacheIfRequired(ms);
       if (ms.isUseCache() && resultHandler == null) {
@@ -161,6 +163,10 @@ public class CachingExecutor implements Executor {
     delegate.clearLocalCache();
   }
 
+  /**
+   * 在默认的设置中SELECT语句不会刷新缓存，insert/update/delte会刷新缓存
+   * @param ms
+   */
   private void flushCacheIfRequired(MappedStatement ms) {
     Cache cache = ms.getCache();
     if (cache != null && ms.isFlushCacheRequired()) {
