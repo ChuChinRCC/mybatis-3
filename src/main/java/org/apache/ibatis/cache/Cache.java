@@ -39,6 +39,9 @@ import java.util.concurrent.locks.ReadWriteLock;
  * @author Clinton Begin
  */
 
+/**
+ * Cache： MyBatis中的Cache接口，提供了和缓存相关的最基本的操作
+ */
 public interface Cache {
 
   /**

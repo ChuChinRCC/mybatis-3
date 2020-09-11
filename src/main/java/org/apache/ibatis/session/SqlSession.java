@@ -29,6 +29,10 @@ import org.apache.ibatis.executor.BatchResult;
  *
  * @author Clinton Begin
  */
+
+/**
+ * SqlSession： 对外提供了用户和数据库之间交互需要的所有方法，隐藏了底层的细节。默认实现类是DefaultSqlSession。
+ */
 public interface SqlSession extends Closeable {
 
   /**

@@ -140,6 +140,15 @@ public class DefaultSqlSession implements SqlSession {
     return this.selectList(statement, parameter, RowBounds.DEFAULT);
   }
 
+  /**
+   * SqlSession创建完毕后，根据Statment的不同类型，会进入SqlSession的不同方法中，
+   * 如果是Select语句的话，最后会执行到SqlSession的selectList
+   * @param statement Unique identifier matching the statement to use.
+   * @param parameter A parameter object to pass to the statement.
+   * @param rowBounds  Bounds to limit object retrieval
+   * @param <E>
+   * @return
+   */
   @Override
   public <E> List<E> selectList(String statement, Object parameter, RowBounds rowBounds) {
     try {
@@ -179,6 +188,12 @@ public class DefaultSqlSession implements SqlSession {
     return insert(statement, null);
   }
 
+  /**
+   * 如果是insert/delete/update方法，缓存就会刷新的原因
+   * @param statement Unique identifier matching the statement to execute.
+   * @param parameter A parameter object to pass to the statement.
+   * @return
+   */
   @Override
   public int insert(String statement, Object parameter) {
     return update(statement, parameter);
@@ -189,15 +204,23 @@ public class DefaultSqlSession implements SqlSession {
     return update(statement, null);
   }
 
+  /**
+   * 每次执行update前都会清空localCache。
+   * @param statement Unique identifier matching the statement to execute.
+   * @param parameter A parameter object to pass to the statement.
+   * @return
+   */
   @Override
   public int update(String statement, Object parameter) {
     try {
       dirty = true;
       MappedStatement ms = configuration.getMappedStatement(statement);
+//      update方法也是委托给了Executor执行
       return executor.update(ms, wrapCollection(parameter));
     } catch (Exception e) {
       throw ExceptionFactory.wrapException("Error updating database.  Cause: " + e, e);
     } finally {
+//      每次执行update前都会清空localCache。
       ErrorContext.instance().reset();
     }
   }
@@ -207,6 +230,12 @@ public class DefaultSqlSession implements SqlSession {
     return update(statement, null);
   }
 
+  /**
+   * 如果是insert/delete/update方法，缓存就会刷新的原因
+   * @param statement Unique identifier matching the statement to execute.
+   * @param parameter A parameter object to pass to the statement.
+   * @return
+   */
   @Override
   public int delete(String statement, Object parameter) {
     return update(statement, parameter);

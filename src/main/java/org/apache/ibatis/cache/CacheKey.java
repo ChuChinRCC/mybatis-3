@@ -25,6 +25,10 @@ import org.apache.ibatis.reflection.ArrayUtil;
 /**
  * @author Clinton Begin
  */
+
+/**
+ * 将MappedStatement的Id、SQL的offset、SQL的limit、SQL本身以及SQL中的参数传入了CacheKey这个类，最终构成CacheKey
+ */
 public class CacheKey implements Cloneable, Serializable {
 
   private static final long serialVersionUID = 1146682552656046210L;
@@ -69,6 +73,11 @@ public class CacheKey implements Cloneable, Serializable {
     return updateList.size();
   }
 
+  /**
+   * 成员变量和构造函数，有一个初始的hachcode和乘数，同时维护了一个内部的updatelist。
+   * 在CacheKey的update方法中，会进行一个hashcode和checksum的计算，同时把传入的参数添加进updatelist中
+   * @param object
+   */
   public void update(Object object) {
     int baseHashCode = object == null ? 1 : ArrayUtil.hashCode(object);
 
@@ -87,6 +96,15 @@ public class CacheKey implements Cloneable, Serializable {
     }
   }
 
+  /**
+   * 同时重写了CacheKey的equals方法
+   * 除去hashcode、checksum和count的比较外，只要updatelist中的元素一一对应相等，
+   * 那么就可以认为是CacheKey相等。只要两条SQL的下列五个值相同，即可以认为是相同的SQL
+   *
+   * Statement Id + Offset + Limmit + Sql + Params
+   * @param object
+   * @return
+   */
   @Override
   public boolean equals(Object object) {
     if (this == object) {

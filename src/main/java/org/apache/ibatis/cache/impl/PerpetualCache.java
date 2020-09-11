@@ -24,6 +24,11 @@ import org.apache.ibatis.cache.CacheException;
 /**
  * @author Clinton Begin
  */
+
+/**
+ * BaseExecutor成员变量之一的PerpetualCache，是对Cache接口最基本的实现，
+ * 其实现非常简单，内部持有HashMap，对一级缓存的操作实则是对HashMap的操作。
+ */
 public class PerpetualCache implements Cache {
 
   private final String id;
