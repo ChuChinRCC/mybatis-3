@@ -11,8 +11,7 @@
 <!--      SESSION或者STATEMENT，默认是SESSION级别，即在一个MyBatis会话中执行的所有语句，都会共享这一个缓存。-->
 <!--      一种是STATEMENT级别，可以理解为缓存只对当前执行的这一个Statement有效。-->
         <setting name="localCacheScope" value="SESSION"/>
-      在MyBatis的配置文件中开启二级缓存
-      
+<!--      在MyBatis的配置文件中开启二级缓存-->
         <setting name="cacheEnabled" value="true"/>
         <!--开启驼峰式命名，数据库的列名能够映射到去除下划线驼峰命名后的字段名-->
         <setting name="mapUnderscoreToCamelCase" value="true"/>

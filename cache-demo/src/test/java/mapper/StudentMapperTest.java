@@ -110,7 +110,7 @@ public class StudentMapperTest {
     return studentEntity;
   }
 
-  /**
+  /**测试二级缓存效果，不提交事务，sqlSession1查询完数据后，sqlSession2相同的查询是否会从缓存中获取数据。
    * <setting name="localCacheScope" value="SESSION"/>
    * <setting name="cacheEnabled" value="true"/>
    */
@@ -127,7 +127,7 @@ public class StudentMapperTest {
 
   }
 
-  /**
+  /**测试二级缓存效果，当提交事务时，sqlSession1查询完数据后，sqlSession2相同的查询是否会从缓存中获取数据。
    * <setting name="localCacheScope" value="SESSION"/>
    * <setting name="cacheEnabled" value="true"/>
    */
@@ -145,7 +145,7 @@ public class StudentMapperTest {
 
   }
 
-  /**
+  /**测试update操作是否会刷新该namespace下的二级缓存。
    * <setting name="localCacheScope" value="SESSION"/>
    * <setting name="cacheEnabled" value="true"/>
    */
@@ -168,7 +168,9 @@ public class StudentMapperTest {
     System.out.println("studentMapper2读取数据: " + studentMapper2.getStudentById(1));
   }
 
-  /**
+  /**验证MyBatis的二级缓存不适应用于映射文件中存在多表查询的情况。
+   通常我们会为每个单表创建单独的映射文件，由于MyBatis的二级缓存是基于namespace的，多表查询语句所在的namspace
+   无法感应到其他namespace中的语句对多表查询中涉及的表进行的修改，引发脏数据问题。
    * <setting name="localCacheScope" value="SESSION"/>
    * <setting name="cacheEnabled" value="true"/>
    */
@@ -193,7 +195,8 @@ public class StudentMapperTest {
     System.out.println("studentMapper2读取数据: " + studentMapper2.getStudentByIdWithClassInfo(1));
   }
 
-  /**
+  /**为了解决实验4的问题呢，可以使用Cache ref，让ClassMapper引用StudenMapper命名空间，
+   * 这样两个映射文件对应的SQL操作都使用的是同一块缓存了。
    * <setting name="localCacheScope" value="SESSION"/>
    * <setting name="cacheEnabled" value="true"/>
    */
